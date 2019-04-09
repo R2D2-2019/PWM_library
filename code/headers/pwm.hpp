@@ -18,6 +18,11 @@ namespace R2D2::pwm_lib {
         CLOCKA,
         CLOCKB
     };
+	
+	struct pwm_channel_s {
+        uint32_t absr;
+        uint32_t pdr;
+    };
 
     ///\brief
     /// This Enum contains the clock frequency's each channel can have. \n
@@ -56,15 +61,7 @@ namespace R2D2::pwm_lib {
         ///\details
         /// enables hardware PWM functionality by stetting up PMC and all the IO lines to the correct pins
         void enable_pwm();
-
-        ///\brief
-        /// Set frequency of CLOCKA or CLOCKB
-        ///\details
-        /// Set the frequency given in hz for one of the clocks
-        ///\param frequency the wanted frequency in hz
-        ///\param clock the clock you want to set (clocks::CLOCKA or clocks::CLOCKB)
-        void set_clock(uint32_t frequency, clocks clock);
-
+		
     public:
         ///\brief
         /// constructor to use a PWM pin.
@@ -95,6 +92,15 @@ namespace R2D2::pwm_lib {
         ///\details
         ///\param new_frequency the frequency based on the frequencies enum class.
         void select_frequency(frequencies new_frequency);
+		
+		///\brief
+        /// Set frequency of CLOCKA or CLOCKB
+        ///\details
+        /// Set the frequency given in hz for one of the clocks
+		/// Note this changes the CLOCKA and CLOCKB for all pwm channels using 1 of these clocks.
+        ///\param frequency the wanted frequency in hz
+        ///\param clock the clock you want to set (clocks::CLOCKA or clocks::CLOCKB)
+        void set_global_pwm_clock(uint32_t frequency, clocks clock);
     };
 };
 

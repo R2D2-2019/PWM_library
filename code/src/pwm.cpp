@@ -3,36 +3,30 @@
 #include <cmath>
 
 namespace R2D2::pwm_lib {
-
-    struct pwm_channel_c {
-        uint32_t absr;
-        uint32_t pdr;
-    };
-
-    constexpr pwm_channel_c pwm_channels[] = {
+    constexpr pwm_channel_s pwm_channels[] = {
         // ch0 PIO: C2 perpheral: B arduino_board_pin: 34
-        pwm_channel_c{PIO_ABSR_P2, PIO_PDR_P2},
+        pwm_channel_s{PIO_ABSR_P2, PIO_PDR_P2},
 
         // ch1 PIO C4 perpheral: B arduino_board_pin: 36
-        pwm_channel_c{PIO_ABSR_P4, PIO_PDR_P4},
+        pwm_channel_s{PIO_ABSR_P4, PIO_PDR_P4},
 
         // ch2 PIO C6 perpheral: B arduino_board_pin: 38
-        pwm_channel_c{PIO_ABSR_P6, PIO_PDR_P6},
+        pwm_channel_s{PIO_ABSR_P6, PIO_PDR_P6},
 
         // ch3 PIO C8 perpheral: B arduino_board_pin: 40
-        pwm_channel_c{PIO_ABSR_P8, PIO_PDR_P8},
+        pwm_channel_s{PIO_ABSR_P8, PIO_PDR_P8},
 
         // ch4 PIO C21 perpheral: B arduino_board_pin: 9
-        pwm_channel_c{PIO_ABSR_P21, PIO_PDR_P21},
+        pwm_channel_s{PIO_ABSR_P21, PIO_PDR_P21},
 
         // ch5 PIO C22 perpheral: B arduino_board_pin: 8
-        pwm_channel_c{PIO_ABSR_P22, PIO_PDR_P22},
+        pwm_channel_s{PIO_ABSR_P22, PIO_PDR_P22},
 
         // ch6 PIO C23 perpheral: B arduino_board_pin: 7
-        pwm_channel_c{PIO_ABSR_P23, PIO_PDR_P23},
+        pwm_channel_s{PIO_ABSR_P23, PIO_PDR_P23},
 
         // ch7 PIO C24 perpheral: B arduino_board_pin: 6
-        pwm_channel_c{PIO_ABSR_P24, PIO_PDR_P24}
+        pwm_channel_s{PIO_ABSR_P24, PIO_PDR_P24}
     };
 
     void pwm_c::enable_pwm() {
@@ -49,15 +43,15 @@ namespace R2D2::pwm_lib {
         REG_PWM_SCM = (0x01 << 16);
 
         // Set CLOCKA to 50hz
-        set_clock(50, clocks::CLOCKA);
+        set_global_pwm_clock(50, clocks::CLOCKA);
 
         // Set CLOCKB to 200hz
-        set_clock(200, clocks::CLOCKB);
+        set_global_pwm_clock(200, clocks::CLOCKB);
 
         initialized = true;
     }
 
-    void pwm_c::set_clock(const uint32_t frequency, const clocks clock) {
+    void pwm_c::set_global_pwm_clock(const uint32_t frequency, const clocks clock) {
         uint16_t divider = 0;
         uint8_t clk_div = 0;
 
