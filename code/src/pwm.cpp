@@ -3,6 +3,11 @@
 #include <cmath>
 
 namespace R2D2::pwm_lib {
+    struct pwm_channel_s {
+        uint32_t absr;
+        uint32_t pdr;
+    };
+
     constexpr pwm_channel_s pwm_channels[] = {
         // ch0 PIO: C2 perpheral: B arduino_board_pin: 34
         pwm_channel_s{PIO_ABSR_P2, PIO_PDR_P2},

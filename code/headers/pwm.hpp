@@ -18,11 +18,6 @@ namespace R2D2::pwm_lib {
         CLOCKA,
         CLOCKB
     };
-	
-	struct pwm_channel_s {
-        uint32_t absr;
-        uint32_t pdr;
-    };
 
     ///\brief
     /// This Enum contains the clock frequency's each channel can have. \n
