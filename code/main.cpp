@@ -9,7 +9,7 @@ int main() {
 	auto pwm1 = PWM_c(0);
 	auto pwm2 = PWM_c(1);
 	set_clock(50,clocks::CLOCKA);
-	pwm1.select_frequency(frequencys::f_320hz);
+	pwm1.select_frequency(frequencies::f_320hz);
 	for(;;){
 	}
 }

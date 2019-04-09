@@ -9,16 +9,16 @@
 #############################################################################
 
 # source files in this project (main.cpp is automatically assumed)
-SOURCES := $(wildcard src/*.cpp)
+SOURCES := $(wildcard ../code/src/*.cpp)
 
 # header files in this project
-HEADERS := $(wildcard headers/*.hpp)
+HEADERS := $(wildcard ../code/headers/*.hpp)
 
 # other places to look for files for this project
-SEARCH  := ./headers ./srca
+SEARCH  := ../code/headers ../code/src
 
 # set REATIVE to the next higher directory 
 # and defer to the Makefile.due there
 RELATIVE := $(RELATIVE)../
-include $(RELATIVE)Makefile.due
+include $(RELATIVE)Makefile.native
 
