@@ -17,6 +17,8 @@ HEADERS := $(wildcard headers/*.hpp)
 # other places to look for files for this project
 SEARCH  := ./headers ./srca
 
+RESULTS += main.lss main.lst
+
 # set REATIVE to the next higher directory 
 # and defer to the Makefile.due there
 RELATIVE := $(RELATIVE)../
