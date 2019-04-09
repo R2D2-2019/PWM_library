@@ -2,7 +2,7 @@
 
 include this library by adding the following lines to the makefile.due in your module.
 ```Makefile
-#add I2C_library
+#add PWM_library
 PWM		           ?= ../../../libraries/PWM_library
 include               $(PWM)/Makefile.inc
 ```
