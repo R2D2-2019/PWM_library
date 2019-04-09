@@ -83,7 +83,7 @@ enum class frequencies: uint32_t {
    /// enables PWM functionality
    ///\details
    /// enables hardware PWM functionality by stetting up PMC and all the IO lines to the correct pins
-	void enable_PWM();
+	void enable_pwm();
 	
 	///\brief 
 	/// Set frequency of CLOCKA or CLOCKB
