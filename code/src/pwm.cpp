@@ -88,15 +88,15 @@ namespace R2D2::pwm_lib {
 
         enable_pwm();
         // set the proper output pins
-		REG_PIOC_ABSR |= pwm_channels[ch_nr].absr;
+        REG_PIOC_ABSR |= pwm_channels[ch_nr].absr;
         REG_PIOC_PDR |= pwm_channels[ch_nr].pdr;
         //set period and duty cycle
         PWM->PWM_CH_NUM[ch_nr].PWM_CPRD = 256;
         PWM->PWM_CH_NUM[ch_nr].PWM_CDTY = 128;
         // select clock A
         PWM->PWM_CH_NUM[ch_nr].PWM_CMR = PWM_CMR_CPRE_CLKA;
-		// enable channel
-	    REG_PWM_ENA = (1 << ch_nr);
+        // enable channel
+        REG_PWM_ENA = (1 << ch_nr);
     }
 
     void pwm_c::change_duty_cycle(uint8_t new_duty_cycle) {
