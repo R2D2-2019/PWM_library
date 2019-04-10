@@ -96,7 +96,12 @@ namespace R2D2::pwm_lib {
         // select clock A
         PWM->PWM_CH_NUM[ch_nr].PWM_CMR = PWM_CMR_CPRE_CLKA;
         // enable channel
-        REG_PWM_ENA = (1 << ch_nr);
+        uint8_t bin_ch_nr = (1 << ch_nr);
+        REG_PWM_ENA = bin_ch_nr;
+		
+        while(!((REG_PWM_SR & bin_ch_nr) == bin_ch_nr)){
+        }
+
     }
 
     void pwm_c::change_duty_cycle(uint8_t new_duty_cycle) {
