@@ -73,13 +73,10 @@ namespace R2D2::pwm_lib {
             ++clk_div;
         }
 		
-		uint32_t current_CLOCKA = ((REG_PWM_CLK << 16) >> 16);
-		uint32_t current_CLOCKB= ((REG_PWM_CLK >> 16) << 16);
-		
         if (clock == clocks::CLOCKA) {
-            REG_PWM_CLK = PWM_CLK_PREA(clk_div) | PWM_CLK_DIVA(divider) | current_clock_b  ;
+            REG_PWM_CLK = PWM_CLK_PREA(clk_div) | PWM_CLK_DIVA(divider) | (REG_PWM_CLK & 0xFFFF0000);  ;
         } else if (clock == clocks::CLOCKB) {
-            REG_PWM_CLK = PWM_CLK_PREB(clk_div) | PWM_CLK_DIVB(divider) | current_clock_a  ;
+            REG_PWM_CLK = PWM_CLK_PREB(clk_div) | PWM_CLK_DIVB(divider) | (REG_PWM_CLK & 0xFFFF) ;
         }
     }
 
