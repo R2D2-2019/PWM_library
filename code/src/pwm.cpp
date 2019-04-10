@@ -56,7 +56,7 @@ namespace R2D2::pwm_lib {
         initialized = true;
     }
 
-    void pwm_c::set_global_pwm_clock(const uint32_t frequency, const clocks clock) {
+    void pwm_c::set_global_pwm_clock(const uint32_t frequency,const clocks clock) {
         uint16_t divider = 0;
         uint8_t clk_div = 0;
 
@@ -72,11 +72,11 @@ namespace R2D2::pwm_lib {
 
             ++clk_div;
         }
-
+		
         if (clock == clocks::CLOCKA) {
-            REG_PWM_CLK = PWM_CLK_PREA(clk_div) | PWM_CLK_DIVA(divider);
+            REG_PWM_CLK = PWM_CLK_PREA(clk_div) | PWM_CLK_DIVA(divider) | (REG_PWM_CLK & 0xFFFF0000);  ;
         } else if (clock == clocks::CLOCKB) {
-            REG_PWM_CLK = PWM_CLK_PREB(clk_div) | PWM_CLK_DIVB(divider);
+            REG_PWM_CLK = PWM_CLK_PREB(clk_div) | PWM_CLK_DIVB(divider) | (REG_PWM_CLK & 0xFFFF) ;
         }
     }
 
@@ -87,15 +87,16 @@ namespace R2D2::pwm_lib {
         }
 
         enable_pwm();
-
-        PWM->PWM_CH_NUM[ch_nr].PWM_CPRD = 256;
-        PWM->PWM_CH_NUM[ch_nr].PWM_CDTY = 128;
-        PWM->PWM_CH_NUM[ch_nr].PWM_CMR = PWM_CMR_CPRE_CLKA;
-
-        REG_PWM_ENA = (1U << ch_nr);
-
+        // set the proper output pins
         REG_PIOC_ABSR |= pwm_channels[ch_nr].absr;
         REG_PIOC_PDR |= pwm_channels[ch_nr].pdr;
+        //set period and duty cycle
+        PWM->PWM_CH_NUM[ch_nr].PWM_CPRD = 256;
+        PWM->PWM_CH_NUM[ch_nr].PWM_CDTY = 128;
+        // select clock A
+        PWM->PWM_CH_NUM[ch_nr].PWM_CMR = PWM_CMR_CPRE_CLKA;
+        // enable channel
+        REG_PWM_ENA = (1 << ch_nr);
     }
 
     void pwm_c::change_duty_cycle(uint8_t new_duty_cycle) {
