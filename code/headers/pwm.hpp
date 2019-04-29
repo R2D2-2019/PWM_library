@@ -39,6 +39,11 @@ namespace R2D2::pwm_lib {
         f_640hz = PWM_CMR_CPRE_MCK_DIV_512, //640hz
         f_320hz = PWM_CMR_CPRE_MCK_DIV_1024 //320hz
     };
+    
+    enum class polarity {
+        POSITIVE,
+        NEGATIVE
+    };
 
     ///\brief
     /// hardware PWM control
@@ -50,6 +55,10 @@ namespace R2D2::pwm_lib {
     private:
         /// The PWM channel number.
         uint_fast8_t ch_nr;
+        
+        polarity ch_polarity;
+        
+        bool inverse;
 
         ///\brief
         /// enables PWM functionality
@@ -71,7 +80,7 @@ namespace R2D2::pwm_lib {
         /// ch5 PIO C22 perpheral: B arduino_board_pin: 8 \n
         /// ch6 PIO C23 perpheral: B arduino_board_pin: 7 \n
         /// ch7 PIO C24 perpheral: B arduino_board_pin: 6 \n
-        explicit pwm_c(uint_fast8_t ch_nr);
+        pwm_c(uint_fast8_t ch_nr, bool inverse_enable = false, polarity polarity = polarity::POSITIVE);
 
         ///\brief
         /// Change duty cycle of given PWM channel
@@ -80,7 +89,7 @@ namespace R2D2::pwm_lib {
         /// duty cycle should be given with a value between 0 and 255(100%) \n
         /// if a value below 0 is given it will be set to a 0, same for a value above 255 this will be set to 255
         ///\param new_duty_cycle the new duty cycle for the channel.
-        void change_duty_cycle(uint8_t new_duty_cycle);
+        void set_duty_cycle(uint8_t new_duty_cycle);
 
         ///\brief
         /// Select the frequency for a channel based on the frequencies enum.
@@ -96,6 +105,10 @@ namespace R2D2::pwm_lib {
         ///\param frequency the wanted frequency in hz
         ///\param clock the clock you want to set (clocks::CLOCKA or clocks::CLOCKB)
         void set_global_pwm_clock(uint32_t frequency, clocks clock);
+        
+        void set_inverse(bool inverse_enable_disable);
+        
+        void set_polarity(polarity new_polarity);
     };
 };
 
