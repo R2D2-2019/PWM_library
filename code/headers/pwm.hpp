@@ -40,6 +40,8 @@ namespace R2D2::pwm_lib {
         f_320hz = PWM_CMR_CPRE_MCK_DIV_1024 //320hz
     };
     
+    ///\brief
+    /// This enum is used for the pwm polarity
     enum class polarity {
         POSITIVE,
         NEGATIVE
@@ -56,8 +58,10 @@ namespace R2D2::pwm_lib {
         /// The PWM channel number.
         uint_fast8_t ch_nr;
         
+        // channel polarity
         polarity ch_polarity;
         
+        // inverse channel enabled or not
         bool inverse;
 
         ///\brief
@@ -106,8 +110,17 @@ namespace R2D2::pwm_lib {
         ///\param clock the clock you want to set (clocks::CLOCKA or clocks::CLOCKB)
         void set_global_pwm_clock(uint32_t frequency, clocks clock);
         
+        ///\brief
+        /// enable the inverse output of said pwm channel
+        ///\details
+        ///\param inverse_enable_disable boolean to enable or disable the inverse output
+        /// true being enabled, false being disabled.
         void set_inverse(bool inverse_enable_disable);
         
+        ///\brief
+        /// Changes the polarity of the pwm signal
+        ///\details
+        ///\param new_polarity the polarity you want to use        
         void set_polarity(polarity new_polarity);
     };
 };
