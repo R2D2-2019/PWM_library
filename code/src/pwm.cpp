@@ -154,9 +154,13 @@ namespace R2D2::pwm_lib {
         }
     }
     
-    void pwm_c::set_polarity(polarity new_polartiy) {
-        ch_polarity = new_polartiy;
-        if (ch_polarity == polarity::NEGATIVE){
+    void pwm_c::set_polarity(polarity new_polarity) {
+        if (new_polarity == ch_polarity) {
+            return;
+        }
+
+        ch_polarity = new_polarity;
+        if (ch_polarity == polarity::NEGATIVE) {
             PWM->PWM_CH_NUM[ch_nr].PWM_CMR |= PWM_CMR_CPOL;
         } else {
             PWM->PWM_CH_NUM[ch_nr].PWM_CMR &= ~PWM_CMR_CPOL;
