@@ -10,7 +10,7 @@
 /// Namespace for PWM library
 ///\details
 /// This namespace contains all the functions for the PWM library.
-namespace R2D2::pwm_lib {
+namespace r2d2::pwm_lib {
 
 ///\brief
 /// This enum contains the clocks for PWM, CLOCKA or CLOCKB.
