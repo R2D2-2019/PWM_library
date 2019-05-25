@@ -1,7 +1,7 @@
 #include <hwlib.hpp>
 #include <pwm.hpp>
 
-using namespace R2D2::pwm_lib;
+using namespace r2d2::pwm_lib;
 
 int main() {
     WDT->WDT_MR = WDT_MR_WDDIS;
